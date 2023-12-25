@@ -1,114 +1,140 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-info navbar__mg">
-  <a
-    class="navbar-brand"
-    href="/site"
-    data-toggle="tooltip"
-    data-placement="top"
-    title="BOOK"
-  >BOOK</a>
-  <div
-    class="collapse navbar-collapse navbar--justify"
-    id="navbarSupportedContent"
-    style="margin-right: 31px;"
-  >
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a
-          class="nav-link"
-          href="/site"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Home"
-        >Home</a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          href="/news"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="News"
-        >News</a>
-      </li>
-    </ul>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <form class="form-inline my-2 my-lg-0 header--search" method="POST">
-          <input
-            class="form-control mr-sm-2"
-            type="text"
-            name="q"
-            placeholder="Search"
-            aria-label="Search"
-            style="margin-right: 2px;"
-          />
-          <button
-            class="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-            style="margin-left: 2px;"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Search"
-          >Search</button>
-        </form>
-      </div>
-      <div style="display: inline-flex; ">
-        <div class="dropdown">
-          <img
-            src="https://yt3.ggpht.com/yti/AGOGRCraojC7eoFvJPk4_bXqjcr2XqRPv46k_gWNW4GD=s88-c-k-c0x00ffffff-no-rj"
-            alt="avatar"
-            style="width: 38px; border-radius: 50%; height: 38px;"
-          />
-          <button
-            class="btn btn-primary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            DUY VU
-          </button>
-          <div
-            class="dropdown-menu pb-2 p-1"
-            aria-labelledby="dropdownMenuButton"
-            style="padding-bottom: 0"
-          >
-            <a
-              class="nav-link"
-              href="/books/create"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Create"
-            >Create</a>
-            <div class="dropdown-divider"></div>
-            <a
-              class="nav-link"
-              href="/me/stored/books"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="My Books"
-            > My Books</a>
-            <div class="dropdown-divider"></div>
+    <a
+        class="navbar-brand"
+        href="/site"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="BOOK"
+        >BOOK</a
+    >
+    <div
+        class="collapse navbar-collapse navbar--justify"
+        id="navbarSupportedContent"
+        style="margin-right: 31px"
+    >
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a
+                    class="nav-link"
+                    href="/site"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Home"
+                    >Home</a
+                >
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link"
+                    href="/news"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="News"
+                    >News</a
+                >
+            </li>
+        </ul>
+        <div style="display: flex; justify-content: space-between">
+            <div>
+                <form
+                    class="form-inline my-2 my-lg-0 header--search"
+                    method="GET"
+                >
+                    <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        id="searchInput"
+                        name="q"
+                        placeholder="Enter your search term"
+                        aria-label="Search"
+                        style="margin-right: 2px"
+                        oninput="highlightSearch()"
+                    />
+                    <button
+                        class="btn btn-outline-success my-2 my-sm-0"
+                        type="submit"
+                        style="margin-left: 2px"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Search"
+                        id="searchButton"
+                    >
+                        Search
+                    </button>
+                </form>
+            </div>
+            <div style="display: inline-flex">
+                <div class="dropdown">
+                    <img
+                        src="https://yt3.ggpht.com/yti/AGOGRCraojC7eoFvJPk4_bXqjcr2XqRPv46k_gWNW4GD=s88-c-k-c0x00ffffff-no-rj"
+                        alt="avatar"
+                        style="width: 38px; border-radius: 50%; height: 38px"
+                    />
+                    <button
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        DUY VU
+                    </button>
+                    <div
+                        class="dropdown-menu pb-2 p-1"
+                        aria-labelledby="dropdownMenuButton"
+                        style="padding-bottom: 0"
+                    >
+                        <a
+                            class="nav-link"
+                            href="/books/create"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Create"
+                            >Create</a
+                        >
+                        <div class="dropdown-divider"></div>
+                        <a
+                            class="nav-link"
+                            href="/me/stored/books"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="My Books"
+                        >
+                            My Books</a
+                        >
+                        <div class="dropdown-divider"></div>
 
-            <a
-              class="nav-link"
-              href="/me/cart"
-              data-toggle="tooltip"
-              data-placement="right"
-              title="cart"
-            >Cart</a>
-            <div class="dropdown-divider"></div>
-            <a
-              class="nav-link"
-              href="/"
-              data-toggle="tooltip"
-              data-placement="right"
-              title="Log out"
-            >Log out</a>
-          </div>
+                        <a
+                            class="nav-link"
+                            href="/me/cart"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            title="cart"
+                            >Cart</a
+                        >
+                        <div class="dropdown-divider"></div>
+                        <a
+                            class="nav-link"
+                            href="/"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            title="Log out"
+                            >Log out</a
+                        >
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </nav>
+
+<script>
+    function highlightSearch() {
+        var searchInput = document.getElementById('searchInput')
+        var searchButton = document.getElementById('searchButton')
+        searchInput.value.trim() !== ''
+            ? searchButton.classList.add('activeSearch')
+            : searchButton.classList.remove('activeSearch')
+    }
+</script>
