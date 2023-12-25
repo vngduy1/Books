@@ -1,49 +1,48 @@
 <div class="m-4">
-  <h3>UPDATE</h3>
-  <form method="POST" action="/books/{{book._id}}?_method=PUT">
-    <div class="form-group m-1">
-      <label for="title">Title</label>
-      <input
-        type="text"
-        class="form-control"
-        value={{book.title}}
-        id="title"
-        name="title"
-      />
-    </div>
-    <div class="form-group m-1">
-      <label for="description">Description</label>
-      <textarea
-        class="form-control"
-        id="description"
-        name="description"
-      >{{book.description}}</textarea>
-    </div>
-    <div class="form-group m-1">
-      <label for="type">Type</label>
-      <input
-        type="text"
-        class="form-control"
-        value={{book.type}}
-        id="type"
-        name="type"
-      />
-    </div>
-    <div class="form-group mt-2">
-      <label for="image">Image</label>
-      <input
-        type="link"
-        class="form-control"
-        value={{book.image}}
-        id="image"
-        name="image"
-      />
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary mt-2"
-      style="padding-right: 2rem; padding-left: 2rem;"
-    >Save</button>
-  </form>
-
+    <h3>UPDATE</h3>
+    <form method="POST" action="/books/{{book._id}}?_method=PUT">
+        <div class="form-group m-1">
+            <label for="title">Title</label>
+            <input
+                type="text"
+                class="form-control"
+                value="{{book.title}}"
+                id="title"
+                name="title"
+            />
+        </div>
+        <div class="form-group m-1">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description">
+{{book.description}}</textarea
+            >
+        </div>
+        <div class="form-group m-1">
+            <label for="type">Type</label>
+            <input
+                type="text"
+                class="form-control"
+                value="{{book.type}}"
+                id="type"
+                name="type"
+            />
+        </div>
+        <div class="form-group mt-2">
+            <label for="image">Image</label>
+            <input
+                type="link"
+                class="form-control"
+                value="{{book.image}}"
+                id="image"
+                name="image"
+            />
+        </div>
+        <button
+            type="submit"
+            class="btn btn-primary mt-2"
+            style="padding-right: 2rem; padding-left: 2rem"
+        >
+            Save
+        </button>
+    </form>
 </div>
