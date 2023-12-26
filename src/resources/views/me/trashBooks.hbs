@@ -1,11 +1,9 @@
 <div style="min-height: 500px">
   <div class="m-4">
-    <h1>My Books</h1>
-    {{#if deletedBook}}
-    <a href="/me/trash/books" style="text-decoration: none"
-      ><h2>Trash ({{deletedBook}})</h2></a
+    <a href="/me/stored/books" style="text-decoration: none"
+      ><h2>List Book</h2></a
     >
-    {{/if}}
+    <h1>Trash</h1>
   </div>
   <table class="table mt-4">
     <thead>
@@ -13,7 +11,7 @@
         <th scope="col">#</th>
         <th scope="col">Title</th>
         <th scope="col">Type</th>
-        <th scope="col">Time</th>
+        <th scope="col">Deleted Time</th>
         <th scope="col"></th>
         <th scope="col"></th>
       </tr>
@@ -28,13 +26,14 @@
           >
         </td>
         <td>{{this.type}}</td>
-        <td>{{this.createdAt}}</td>
+        <td>{{this.deletedAt}}</td>
         <td>
           <a
             href="/books/{{this._id}}/edit"
-            class="btn btn-primary"
+            class="btn btn-primary btn-restore"
             style="text-decoration: none"
-            >Sua</a
+            data-id="{{this._id}}"
+            >Restore</a
           >
         </td>
         <td>
@@ -46,18 +45,22 @@
             data-target="#deleteBookModal"
             data-id="{{this._id}}"
           >
-            Delete
+            Destroy
           </button>
         </td>
       </tr>
       {{else}}
       <tr>
         <td colspan="5" class="text-center">
-          There are no books yet.
-          <a class="btn btn-primary" href="/books/create">Create Book</a>
+          <h4>You haven't deleted any books yet</h4>
+          <img
+            src="https://ichibajp.com/images/img-cart-empty.png"
+            alt=""
+            style="width: 45%"
+          />
         </td>
+        {{/each}}
       </tr>
-      {{/each}}
     </tbody>
   </table>
 </div>
@@ -99,21 +102,31 @@
 </div>
 
 <form name="deleteBookForm" method="POST"></form>
+<form name="restoreBookForm" method="POST"></form>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     let bookId
     const deleteForm = document.forms['deleteBookForm']
+    const restoreForm = document.forms['restoreBookForm']
     const btnDeleteBook = document.getElementById('btnDeleteBook')
+    const restoreBtn = $('.btn-restore')
 
     $('#deleteBookModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
       bookId = button.data('id')
     })
 
-    btnDeleteBook.onclick = () => {
-      deleteForm.action = '/books/' + bookId + '?_method=DELETE'
+    btnDeleteBook.onclick = function () {
+      deleteForm.action = '/books/' + bookId + '/force?_method=DELETE'
       deleteForm.submit()
     }
+
+    restoreBtn.click(function (e) {
+      e.preventDefault()
+      var bookId = $(this).data('id')
+      restoreForm.action = '/books/' + bookId + '/restore?_method=PATCH'
+      restoreForm.submit()
+    })
   })
 </script>
