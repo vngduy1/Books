@@ -1,13 +1,40 @@
-<div style="min-height: 500px">
+<form style="min-height: 500px" method="POST" action="/books/handle-form-trash">
   <div class="m-4">
     <a href="/me/stored/books" style="text-decoration: none"
       ><h2>List Book</h2></a
     >
     <h1>Trash</h1>
   </div>
+  <div class="mt-4 d-flex align-items-center">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="checkbox-all"
+      />
+      <label class="form-check-label" for="checkbox-all"> Check All </label>
+    </div>
+
+    <select
+      class="form-control form-control-sm"
+      name="action"
+      required="true"
+      style="width: 127px; margin: 0 4px"
+    >
+      <option value="">--Choose action--</option>
+      <option value="restore">--Restore--</option>
+      <option value="destroy">--Destroy--</option>
+    </select>
+
+    <button class="btn btn-sm btn-primary check-all-submit-btn disabled">
+      Submit
+    </button>
+  </div>
   <table class="table mt-4">
     <thead>
       <tr>
+        <th scope="col"></th>
         <th scope="col">#</th>
         <th scope="col">Title</th>
         <th scope="col">Type</th>
@@ -19,6 +46,16 @@
     <tbody>
       {{#each books}}
       <tr>
+        <td>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="bookIds[]"
+              value="{{this._id}}"
+            />
+          </div>
+        </td>
         <th scope="row">{{sum @index 1}}</th>
         <td>
           <a href="/books/{{this.slug}}" style="text-decoration: none"
@@ -63,7 +100,7 @@
       </tr>
     </tbody>
   </table>
-</div>
+</form>
 <!-- Modal -->
 <div
   class="modal fade"
@@ -111,6 +148,9 @@
     const restoreForm = document.forms['restoreBookForm']
     const btnDeleteBook = document.getElementById('btnDeleteBook')
     const restoreBtn = $('.btn-restore')
+    const checkBoxAll = $('#checkbox-all')
+    const bookItemCheckbox = $('input[name ="bookIds[]"]')
+    const checkAllSubmitBtn = $('.check-all-submit-btn')
 
     $('#deleteBookModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
@@ -128,5 +168,26 @@
       restoreForm.action = '/books/' + bookId + '/restore?_method=PATCH'
       restoreForm.submit()
     })
+
+    checkBoxAll.change(function () {
+      var isCheckedAll = $(this).prop('checked')
+      bookItemCheckbox.prop('checked', isCheckedAll)
+      renderCheckAllSubmitBtn()
+    })
+
+    //Book Item checkbox change
+    bookItemCheckbox.change(function () {
+      const isCheckedAll =
+        bookItemCheckbox.length === $('input[name ="bookIds[]"]:checked').length
+      checkBoxAll.prop('checked', isCheckedAll)
+      renderCheckAllSubmitBtn()
+    })
+
+    const renderCheckAllSubmitBtn = function () {
+      const checkedCount = $('input[name ="bookIds[]"]:checked').length
+      checkedCount > 0
+        ? checkAllSubmitBtn.removeClass('disabled')
+        : checkAllSubmitBtn.addClass('disabled')
+    }
   })
 </script>

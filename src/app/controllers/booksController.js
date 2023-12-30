@@ -57,6 +57,36 @@ class booksController {
       .then(() => res.redirect('back'))
       .catch(next)
   }
+
+  //POST books/handle-form-actions"
+  handleFormActions(req, res, next) {
+    switch (req.body.action) {
+      case 'delete':
+        Books.delete({ _id: { $in: req.body.bookIds } })
+          .then(() => res.redirect('back'))
+          .catch(next)
+        break
+      default:
+        res.json({ message: 'action is invalid!' })
+    }
+  }
+
+  handleFormTrash(req, res, next) {
+    switch (req.body.action) {
+      case 'restore':
+        Books.restore({ _id: { $in: req.body.bookIds } })
+          .then(() => res.redirect('back'))
+          .catch(next)
+        break
+      case 'destroy':
+        Books.deleteMany({ _id: { $in: req.body.bookIds } })
+          .then(() => res.redirect('back'))
+          .catch(next)
+        break
+      default:
+        res.json({ message: 'action is invalid!' })
+    }
+  }
 }
 
 module.exports = new booksController()
